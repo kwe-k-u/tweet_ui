@@ -72,7 +72,7 @@ class TweetVM {
         userLink: _userLink(tweet)!,
         text: _text(_originalTweetOrRetweet(tweet)),
         textRunes: _runes(_originalTweetOrRetweet(tweet)),
-        profileUrl: _profileURL(tweet)!,
+        profileUrl: _profileURL(tweet) ?? "",
         allPhotos: _allPhotos(_originalTweetOrRetweet(tweet)),
         userName: _userName(tweet),
         userScreenName: _userScreenName(tweet),
@@ -96,9 +96,7 @@ class TweetVM {
   }
 
   static String _createdAt(Tweet tweet, DateFormat? displayFormat) {
-    DateFormat twitterFormat =
-        new DateFormat("EEE MMM dd HH:mm:ss '+0000' yyyy", 'en_US');
-    final dateTime = twitterFormat.parseUTC(tweet.createdAt).toLocal();
+    final dateTime = DateTime.parse(tweet.createdAt);
     return (displayFormat ?? new DateFormat("HH:mm • MM.dd.yyyy", 'en_US'))
         .format(dateTime);
   }
